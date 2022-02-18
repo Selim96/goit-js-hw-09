@@ -29,30 +29,45 @@ const options = {
 };
 
 const fp = flatpickr(input, options);
-
-// input.addEventListener("input", () => {
-    
-// });
+// let timer = null;
+// let distinction = true;
+let distinction = 1;
 
 startBtn.addEventListener("click", () => {    
     const dateInput = new Date(input.value);
     
     startBtn.disabled = true;
-    input.disabled = true;
+    input.disabled = true;    
     
-    timer = setInterval(() => {
+    const timer = setInterval(() => {
         const date = new Date();
-        const distinction = dateInput.getTime() - date.getTime();
+        distinction = dateInput - date;
+        console.log(distinction);
+
+        if (distinction < 1000 ) {
+            console.log(timer);
+            clearInterval(timer);
+        }
         
         const counter = convertMs(distinction);
         
-        days.textContent = counter.days;
-        hours.textContent = counter.hours;
-        minutes.textContent = counter.minutes;
-        seconds.textContent = counter.seconds;
+        if (counter.days < 100) {
+            days.textContent = padstart(counter.days);
+        } else {
+            days.textContent = counter.days;
+        }
+        
+        hours.textContent = padstart(counter.hours);
+        minutes.textContent = padstart(counter.minutes);
+        seconds.textContent = padstart(counter.seconds);
+
     }, 1000);
     
 });
+
+function padstart(num) {
+    return String(num).padStart(2, 0);
+};
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -73,6 +88,7 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 };
 
-
+const value = document.querySelector(".value");
+value.style.fontWeight = 50;
 
 
