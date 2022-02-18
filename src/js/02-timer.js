@@ -32,6 +32,7 @@ const fp = flatpickr(input, options);
 // let timer = null;
 // let distinction = true;
 let distinction = 1;
+let timer = 0;
 
 startBtn.addEventListener("click", () => {    
     const dateInput = new Date(input.value);
@@ -39,14 +40,13 @@ startBtn.addEventListener("click", () => {
     startBtn.disabled = true;
     input.disabled = true;    
     
-    const timer = setInterval(() => {
+    timer = setInterval(() => {
         const date = new Date();
         distinction = dateInput - date;
-
+        
         if (distinction < 1000 ) {            
             clearInterval(timer);
         }
-        
         const counter = convertMs(distinction);
         
         if (counter.days < 100) {
