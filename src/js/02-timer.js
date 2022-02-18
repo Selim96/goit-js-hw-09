@@ -18,13 +18,13 @@ const options = {
     onClose(selectedDates) {
         console.log(selectedDates[0]);
         const date = new Date();
-        const newdate = new Date(input.value);
+        const newdate = new Date(selectedDates[0]);
     
         if (newdate.getTime() > date.getTime()) {
             startBtn.disabled = false;
         } else {
             window.alert("Please choose a date in the future");
-        }
+        };
     },
 };
 
@@ -34,13 +34,12 @@ const fp = flatpickr(input, options);
     
 // });
 
-startBtn.addEventListener("click", () => {
-    
+startBtn.addEventListener("click", () => {    
     const dateInput = new Date(input.value);
     
     startBtn.disabled = true;
     input.disabled = true;
-     
+    
     timer = setInterval(() => {
         const date = new Date();
         const distinction = dateInput.getTime() - date.getTime();
